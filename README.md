@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://github.com/TaterZucks/opor/blob/main/src.luau"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TaterZucks/opor/refs/heads/main/src.luau"))()
