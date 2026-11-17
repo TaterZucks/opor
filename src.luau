@@ -35,7 +35,7 @@ local settings =
 game.Players.LocalPlayer.OnTeleport:Connect(function()
 	if settings["General"]["Keep nrfm on teleport"] == true then
 		print("teleporting")
-		queueteleport("loadstring(game:HttpGet('https://github.com/TaterZucks/opor/blob/main/src.luau'))()")
+		queueteleport("https://raw.githubusercontent.com/TaterZucks/opor/refs/heads/main/src.luau'))()")
 	end
 end)
 
