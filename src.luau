@@ -775,7 +775,7 @@ Iris:Connect(function()
 					end
 					style = humanoid:FindFirstChild("Style")
 					if style then
-						style = style:FindFirstChild("Style").Value
+						style = style.Value
 					else
 						style = "None"
 					end
