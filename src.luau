@@ -724,6 +724,16 @@ Iris:Connect(function()
 			end
 		end
 		Iris.End()
+		
+		Iris.Tree({ "Daily Quest Npcs" })
+		for _, npc:Model in workspace.NPCs:GetChildren() do
+			if npc:FindFirstChild("Daily") then
+				if Iris.Button({npc.Name}).clicked() then
+					teleportClient(npc:GetPivot().Position)
+				end
+			end
+		end
+		Iris.End()
 
 		Iris.Tree({ "Islands" })
 		Iris.Text({ sea })
@@ -743,93 +753,99 @@ end)
 Iris:Connect(function()
 	if infoenabled:get() then
 		Iris.Window({"Data for: " .. infoselection.Name}, {size = Vector2.new(175, 200)})
-		
-		local race = 	"unknown"
-		local role =	"unknown"
-		local faction = "unknown"
-		local df = 		"unknown"
-		local style =	"unknown"
-		
 		local char = playercharacterfolder:FindFirstChild(infoselection.Name)
 		if char then
-			race = char:FindFirstChild("Race").Value
-			role = char:FindFirstChild("Role").Value
-			faction = char:FindFirstChild("Faction").Value
+			local race = 	"unknown"
+			local role =	"unknown"
+			local faction = "unknown"
+			local df = 		"unknown"
+			local style =	"unknown"
 			
-			local humanoid = char:FindFirstChild("Humanoid")
-			if humanoid then
-				df = humanoid:FindFirstChild("DF")
-				if df then
-					df = df:FindFirstChild("DFType").Value
-				else
-					df = "None"
+				race = char:FindFirstChild("Race").Value
+				role = char:FindFirstChild("Role").Value
+				faction = char:FindFirstChild("Faction").Value
+				
+				local humanoid = char:FindFirstChild("Humanoid")
+				if humanoid then
+					df = humanoid:FindFirstChild("DF")
+					if df then
+						df = df:FindFirstChild("DFType").Value
+					else
+						df = "None"
+					end
+					style = humanoid:FindFirstChild("Style")
+					if style then
+						style = style:FindFirstChild("Style").Value
+					else
+						style = "None"
+					end
 				end
-				style = humanoid:FindFirstChild("Style").Value
+		
+			Iris.Group()
+			do
+				Iris.Image({
+					SelImageContent,
+					UDim2.fromOffset(48, 48),
+				})
+				
+				Iris.Text({"DF: " .. df})
+				Iris.Text({"Style: " .. style})
+				Iris.Text({"Race: " .. race})
+				Iris.Text({"Faction: " .. faction})
 			end
-		end
-		
-		Iris.Group()
-		do
-			Iris.Image({
-				SelImageContent,
-				UDim2.fromOffset(48, 48),
-			})
+			Iris.End()
 			
-			Iris.Text({"DF: " .. df})
-			Iris.Text({"Style: " .. style})
-			Iris.Text({"Race: " .. race})
-			Iris.Text({"Faction: " .. faction})
-		end
-		Iris.End()
-		
-		local rep = infoselection:FindFirstChild("Reputation").Value
-		
-		if rep then
-			rep = formatMoney(rep)
+			local rep = infoselection:FindFirstChild("Reputation").Value
+			
+			if rep then
+				rep = formatMoney(rep)
+			else
+				rep = "unknown"
+			end
+			
+			local value = infoselection:FindFirstChild("CurrentInventoryVal").Value
+			if not value then
+				value = "unknown"
+			end
+			
+			local playtime = infoselection:FindFirstChild("PlayTime").Value
+			if not playtime then
+				playtime = "unknown"
+			end
+			
+			Iris.Separator()
+			Iris.Text({"Rep: " .. rep})
+			Iris.Text({"Inventory: " .. value .. " items"})
+			Iris.Text({"Serv playtime: " .. playtime .. " minutes"})
+			
+			Iris.Separator()
+			
+			Iris.Tree({ "Extra" })
+			for _, v in ipairs(char:GetDescendants()) do
+				
+				if v:IsA("NumberValue") then
+					Iris.Text({v.Name .. ": " .. v.Value})
+				end
+				
+				if v:IsA("StringValue") then
+					Iris.Text({v.Name .. ": " .. v.Value})
+				end
+				
+				if v:IsA("BoolValue") then
+					Iris.Text({v.Name .. ": " .. tostring(v.Value)})
+				end
+				
+				if v:IsA("IntValue") then
+					Iris.Text({v.Name .. ": " .. v.Value})
+				end
+				
+			end
+			Iris.End()
+			
+			Iris.End()
 		else
-			rep = "unknown"
+			infoenabled.Value = false
 		end
-		
-		local value = infoselection:FindFirstChild("CurrentInventoryVal").Value
-		if not value then
-			value = "unknown"
-		end
-		
-		local playtime = infoselection:FindFirstChild("PlayTime").Value
-		if not playtime then
-			playtime = "unknown"
-		end
-		
-		Iris.Separator()
-		Iris.Text({"Rep: " .. rep})
-		Iris.Text({"Inventory: " .. value .. " items"})
-		Iris.Text({"Serv playtime: " .. playtime .. " minutes"})
-		
-		Iris.Separator()
-		
-		Iris.Tree({ "Extra" })
-		for _, v in ipairs(char:GetDescendants()) do
-			
-			if v:IsA("NumberValue") then
-				Iris.Text({v.Name .. ": " .. v.Value})
-			end
-			
-			if v:IsA("StringValue") then
-				Iris.Text({v.Name .. ": " .. v.Value})
-			end
-			
-			if v:IsA("BoolValue") then
-				Iris.Text({v.Name .. ": " .. tostring(v.Value)})
-			end
-			
-			if v:IsA("IntValue") then
-				Iris.Text({v.Name .. ": " .. v.Value})
-			end
-			
-		end
-		Iris.End()
-		
-		Iris.End()
 	end
 end)
 
