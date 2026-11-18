@@ -62,3 +62,4 @@ function returnlocations()
 end
 
 returnlocations()
+print(returnlocations())
