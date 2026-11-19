@@ -1,5 +1,4 @@
-function returnlocations()
-	local sealocations = {
+	return {
 		["East Blue"] = {
 			["Logue Town"] = Vector3.new(-1081.958740234375, 56.79499816894531, -2419.123046875),
 			["Drago"] = Vector3.new(868.479248046875, 30.079486846923828, -2325.840576171875),
@@ -57,9 +56,3 @@ function returnlocations()
 			["Shandora"] = Vector3.new(-3864.46875, 5377.3974609375, 2208.525390625),
 		},
 	}
-	
-	return sealocations
-end
-
-returnlocations()
-print(returnlocations())
